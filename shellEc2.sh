@@ -12,7 +12,7 @@ INSTANCE_ID=$(aws ec2 run-instances \
     --instance-type t3.micro \
     --security-groups "myipv4" "robo-$instance" \
     --tag-specifications \
-        'ResourceType=instance,Tags=[{Key=Name,Value="robo-$instance"}]' \
+        "ResourceType=instance,Tags=[{Key=Name,Value=robo-$instance}]" \
          --query 'Instances[0].InstanceId' \
     --output text
 )
@@ -24,12 +24,12 @@ if [ $instnace == "frontend" ]; then
     IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
     --query 'Reservations[*].Instances[*].PublicIpAddress' \
     --output text)
-    R53_RECORD=$DOMAIN_NAME
+    R53_RECORD="$DOMAIN_NAME"
  else
     IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
     --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     --output text)
-    R53_RECORD=$instance.$DOMAIN_NAME
+    R53_RECORD="$instance.$DOMAIN_NAME"
 }
 fi
 
