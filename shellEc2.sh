@@ -17,7 +17,7 @@ do
 
     echo "INSTANCE_ID: $INSTANCE_ID"
 
-    aws ec2 describe-instances --instance-ids "$INSTANCE_ID"
+    ### aws ec2 describe-instances --instance-ids "$INSTANCE_ID"
 
     if [ "$instance" == "frontend" ]; then
         IP=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" \
