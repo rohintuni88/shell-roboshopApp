@@ -38,3 +38,12 @@ VALIDATE $? "this will Starting and Enabling the mongod"
 
 netstat -lntp | tee -a $LOG_FILE
 VALIDATE $? "check port running or not"
+ 
+sed i 's/127.0.0.1/0.0.0.0./g' /etc/mongod.conf
+VALIDATE $? "allowing remote connection to mongodb"
+
+systemctl restart mongod
+VALIDATE $? "Restart mongod"
+
+netstat -lntp | tee -a $LOG_FILE
+VALIDATE $? "check port running or not"
