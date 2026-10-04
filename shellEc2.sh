@@ -32,26 +32,24 @@ if [ $instnace == "frontend" ]; then
 fi
 
 aws route53 change-resource-record-sets \
-    --hosted-zone-id $ZONE_ID \
-    --change-batch '
-        {
-           "Comment": "Updating the A record for the main website",
-              "Changes": [
-                 {
-                    "Action": "UPSERT",
-                    "ResourceRecordSet": {
-                       "Name": "'$R53_RECORD'",
-                       "Type": "A",
-                       "TTL": 1,
-                          "ResourceRecords": [
-                            {
-                               "Value": "'$IP'"
-                            }
-                        ]
-                    }
-                  }
-                ]
-        }
-    
-    '
+    --hosted-zone-id "$ZONE_ID" \
+    --change-batch "{
+        \"Comment\": \"Updating the A record for the main website\",
+        \"Changes\": [
+            {
+                \"Action\": \"UPSERT\",
+                \"ResourceRecordSet\": {
+                    \"Name\": \"$R53_RECORD\",
+                    \"Type\": \"A\",
+                    \"TTL\": 1,
+                    \"ResourceRecords\": [
+                        {
+                            \"Value\": \"$IP\"
+                        }
+                    ]
+                }
+            }
+        ]
+    }"
+
 done
