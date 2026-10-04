@@ -13,7 +13,7 @@ Y="\e[33m"
 N="\e[0m"
 TIME_STAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
-if [ USERID -ne 0 ]; then
+if [ $USERID -ne 0 ]; then
     echo -e "$TIME_STAMP [ERROR] $R Please Tun with ROOT access $N " | tee -a $LOG_FILE
     exit 1
 fi
