@@ -1,1 +1,32 @@
 #!/bin/bash
+
+LOG_FOLDER="/var/log/ShellLogs"
+sudo mkdir -p $LOG_FOLDER
+sudo chown -R ec2-user:ec2-user $LOG_FOLDER
+sudo chmod -R 755 $LOG_FOLDER
+LOG_FILE="$LOG_FOLDER/$0.log"
+
+USERID=$(id -u)
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+TIME_STAMP=$(date "+%Y-%m-%d %H:%M:%S")
+
+if [ USERID -ne 0 ]; then
+    echo -e "$TIME_STAMP [ERROR] $R Please Tun with ROOT access $N " | tee -a $LOG_FILE
+    exit 1
+fi
+
+VALIDATE(){
+ if [ $1 -ne 0 ]; then
+    echo -e "$TIME_STAMP [ERROR] $2... $R Failure $N" |   tee -a $LOG_FILE 
+    exit 1
+ else 
+   echo -e "$TIME_STAMP [INFO] $2... $G SUCCESS $N" |   tee -a $LOG_FILE
+fi
+}
+
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+VALIDATE $? "Adding Mongo repo"
+
