@@ -14,7 +14,7 @@ N="\e[0m"
 TIME_STAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
 if [ $USERID -ne 0 ]; then
-    echo -e "$TIME_STAMP [ERROR] $R Please Tun with ROOT access $N " | tee -a $LOG_FILE
+    echo -e "$TIME_STAMP [ERROR] $R Please Run with ROOT access $N " | tee -a $LOG_FILE
     exit 1
 fi
 
@@ -30,3 +30,5 @@ fi
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding Mongo repo"
 
+dnf install mongodb-org -y  &>> $LOG_FILE
+VALIDATE $? "Installing Mongo DB Server"
