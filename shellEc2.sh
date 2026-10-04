@@ -1,0 +1,5 @@
+#!/bin/bash
+
+AMI_ID=ami-0220d79f3f480ecf5
+ZONE_ID=Z079173622ZFKOVAG4QDL
+DOMAIN_NAME=rtdevops.online
