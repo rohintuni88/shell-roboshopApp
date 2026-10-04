@@ -32,3 +32,9 @@ VALIDATE $? "Adding Mongo repo"
 
 dnf install mongodb-org -y  &>> $LOG_FILE
 VALIDATE $? "Installing Mongo DB Server"
+
+systemctl enable --now mongod &>> $LOG_FILE
+VALIDATE $? "this will Starting and Enabling the mongod"
+
+netstat -lntp | tee -a $LOG_FILE
+VALIDATE $? "check port running or not"
