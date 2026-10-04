@@ -20,7 +20,6 @@ INSTANCE_ID=$(aws ec2 run-instances \
 echo "INSTANCE_ID: $INSTANCE_ID
 aws ec2 describe-instance --instance-ids $INSTANCE_ID
 if [ $instnace == "frontend" ]; then
-{
     IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
     --query 'Reservations[*].Instances[*].PublicIpAddress' \
     --output text)
@@ -30,7 +29,6 @@ if [ $instnace == "frontend" ]; then
     --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     --output text)
     R53_RECORD="$instance.$DOMAIN_NAME"
-}
 fi
 
 ### To Update R53 Records ###
